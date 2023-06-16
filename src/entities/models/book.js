@@ -1,27 +1,32 @@
 const { DataTypes } = require("sequelize");
 const { sequelize: db } = require("../../config/db-config");
-const Libro = require("./libro");
+const Libreria = require("./library");
 
-const Libreria = db.define("libreria", {
+const Libro = db.define("libro", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
+  isbn: {
+    type: DataTypes.INTEGER,
+    unique: true,
+    allowNull: false,
+  },
+  title: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  location: {
+  author: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  phone: {
+  year: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-Libreria.hasMany(Libro, { foreignKey: "libraryId" });
+Libro.belongsTo(Libreria, { foreignKey: "libraryId" });
 
-module.exports = Libreria;
+module.exports = Libro;
