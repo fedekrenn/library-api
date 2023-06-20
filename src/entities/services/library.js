@@ -1,10 +1,10 @@
-import { LibraryModel } from "../models/index";
+const Libreria = require("../models/library");
 // const { Op } = require("sequelize");
 
 class Library {
   async createLibrary(data) {
     try {
-      const library = await LibraryModel.create(data);
+      const library = await Libreria.create(data);
       return library;
     } catch (error) {
       console.log(error);
@@ -13,7 +13,7 @@ class Library {
 
   async getLibraryById(id) {
     try {
-      const library = await LibraryModel.findByPk(id);
+      const library = await Libreria.findByPk(id);
       return library;
     } catch (error) {
       console.log(error);
@@ -22,7 +22,7 @@ class Library {
 
   async getAllLibraries() {
     try {
-      const libraries = await LibraryModel.findAll();
+      const libraries = await Libreria.findAll();
       return libraries;
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ class Library {
 
   async updateLibraryById(id, data) {
     try {
-      const library = await LibraryModel.update(data, { where: { id } });
+      const library = await Libreria.update(data, { where: { id } });
       return library;
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ class Library {
 
   async deleteLibraryById(id) {
     try {
-      const library = await LibraryModel.destroy({ where: { id } });
+      const library = await Libreria.destroy({ where: { id } });
       return library;
     } catch (error) {
       console.log(error);

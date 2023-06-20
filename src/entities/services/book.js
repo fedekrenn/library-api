@@ -1,10 +1,10 @@
-import { BookModel } from "../models/index";
+const Libro = require("../models/book");
 // const { Op } = require("sequelize");
 
 class Book {
   async createBook(data) {
     try {
-      const book = await BookModel.create(data);
+      const book = await Libro.create(data);
       return book;
     } catch (error) {
       console.log(error);
@@ -13,7 +13,7 @@ class Book {
 
   async getBookById(id) {
     try {
-      const book = await BookModel.findByPk(id);
+      const book = await Libro.findByPk(id);
       return book;
     } catch (error) {
       console.log(error);
@@ -22,7 +22,7 @@ class Book {
 
   async getBooks() {
     try {
-      const book = await BookModel.findAll();
+      const book = await Libro.findAll()
       return book;
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ class Book {
 
   async updateBookById(id, data) {
     try {
-      const book = await BookModel.update(data, { where: { id } });
+      const book = await Libro.update(data, { where: { id } });
       return book;
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ class Book {
 
   async deleteBookById(id) {
     try {
-      const book = await BookModel.destroy({ where: { id } });
+      const book = await Libro.destroy({ where: { id } });
       return book;
     } catch (error) {
       console.log(error);

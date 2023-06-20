@@ -1,4 +1,4 @@
-const LibraryModel = require("./library");
+const Libro = require("./library");
 const BookModel = require("./book");
 
-module.exports = { LibraryModel, BookModel };
+module.exports = { Libro, BookModel };

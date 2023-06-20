@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { sequelize: db } = require("../../config/db-config");
-const Libreria = require("./library");
 
 const Libro = db.define("libro", {
   id: {
@@ -26,7 +25,5 @@ const Libro = db.define("libro", {
     allowNull: false,
   },
 });
-
-Libro.belongsTo(Libreria, { foreignKey: "libraryId" });
 
 module.exports = Libro;
