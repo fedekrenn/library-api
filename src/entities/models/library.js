@@ -22,6 +22,7 @@ const Libreria = db.define("libreria", {
   },
 });
 
-Libreria.hasMany(Libro, { foreignKey: "libraryId" });
+Libreria.hasMany(Libro);
+Libro.belongsTo(Libreria);
 
 module.exports = Libreria;
