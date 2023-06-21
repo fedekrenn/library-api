@@ -9,7 +9,6 @@ const Libro = db.define("libro", {
   },
   isbn: {
     type: DataTypes.INTEGER,
-    unique: true,
     allowNull: false,
   },
   title: {
