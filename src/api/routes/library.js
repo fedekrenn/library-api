@@ -12,6 +12,7 @@ const { Router } = express;
 const routerLibrary = Router();
 
 /* ---------- GET ------------ */
+
 routerLibrary.get("/", getAllLibraries);
 routerLibrary.get("/:id", getLibraryById);
 
