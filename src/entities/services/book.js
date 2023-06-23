@@ -1,4 +1,3 @@
-// const Libro = require('../models/book')
 const { BookModel } = require('../models/index')
 
 class Book {
@@ -29,7 +28,9 @@ class Book {
       const res = await BookModel.create(data)
       return `Libro creado correctamente bajo el id ${res.id}`
     } catch (error) {
-      return `Error al crear libro: ${error}`
+      return error.name === 'SequelizeForeignKeyConstraintError'
+        ? 'Ese Id de librería no existe'
+        : `Error al crear libro: ${error}`
     }
   }
 
@@ -48,7 +49,7 @@ class Book {
     try {
       const res = await BookModel.destroy({ where: { id } })
       if (res === 0) return `No existe libro con id ${id}`
-      
+
       return `Libro eliminado correctamente bajo el id ${id}`
     } catch (error) {
       return `Error al eliminar libro: ${error}`
