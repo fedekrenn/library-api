@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize: db } = require('../../config/db-config')
-const Book = require('./book')
 
-const Library = db.define('library', {
+const User = db.define('user', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,19 +9,13 @@ const Library = db.define('library', {
   },
   name: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false,
   },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  phone: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 })
 
-Library.hasMany(Book)
-Book.belongsTo(Library)
-
-module.exports = Library
+module.exports = User

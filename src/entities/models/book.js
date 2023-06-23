@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize: db } = require("../../config/db-config");
 
-const Libro = db.define("libro", {
+const Book = db.define("book", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -25,4 +25,4 @@ const Libro = db.define("libro", {
   },
 });
 
-module.exports = Libro;
+module.exports = Book;

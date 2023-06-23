@@ -1,9 +1,10 @@
-const Libro = require('../models/book')
+// const Libro = require('../models/book')
+const { BookModel } = require('../models/index')
 
 class Book {
   async getBookById(id) {
     try {
-      const book = await Libro.findByPk(id)
+      const book = await BookModel.findByPk(id)
       if (!book) return `No existe libro con id ${id}`
 
       return book
@@ -14,7 +15,7 @@ class Book {
 
   async getBooks() {
     try {
-      const books = await Libro.findAll()
+      const books = await BookModel.findAll()
       if (books.length === 0) return 'Todavía no se cargaron libros'
 
       return books
@@ -25,7 +26,7 @@ class Book {
 
   async createBook(data) {
     try {
-      const res = await Libro.create(data)
+      const res = await BookModel.create(data)
       return `Libro creado correctamente bajo el id ${res.id}`
     } catch (error) {
       return `Error al crear libro: ${error}`
@@ -34,7 +35,7 @@ class Book {
 
   async updateBookById(id, data) {
     try {
-      const res = await Libro.update(data, { where: { id } })
+      const res = await BookModel.update(data, { where: { id } })
       if (res[0] === 0) return `No existe libro con id ${id}`
 
       return `Libro actualizado correctamente bajo el id ${id}`
@@ -45,7 +46,7 @@ class Book {
 
   async deleteBookById(id) {
     try {
-      const res = await Libro.destroy({ where: { id } })
+      const res = await BookModel.destroy({ where: { id } })
       if (res === 0) return `No existe libro con id ${id}`
       
       return `Libro eliminado correctamente bajo el id ${id}`
