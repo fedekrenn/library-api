@@ -1,4 +1,11 @@
-const routerBook = require("./book");
-const routerLibrary = require("./library");
+const routerBook = require('./book')
+const routerLibrary = require('./library')
+const routerCreateUser = require('./createUser')
+const routerValidateUser = require('./login')
 
-module.exports = { routerBook, routerLibrary };
+module.exports = {
+  routerBook,
+  routerLibrary,
+  routerCreateUser,
+  routerValidateUser,
+}
