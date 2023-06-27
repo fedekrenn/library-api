@@ -1,6 +1,0 @@
-1) Tengo un issue que pide cambiar el nombre de la carpeta services a provider, pero en este caso quizás lo mejor 
-sería tener ambos ya que el servicio se puede encargar de la parte lógica de negocio y el provider actuar como
-DAO (Data Access Object) para la parte de persistencia de datos.
-
-2) En todo.JPG tengo el modelo a seguir para en el controller de validate user aplicar el token de 
-jsonwebtoken

@@ -13,10 +13,10 @@ class User {
   async validateUser(data) {
     try {
       const user = await UserModel.findOne({ where: { name: data.name } })
-      if (!user) return `No existe usuario con email ${data.name}`
+      if (!user) return { error: 1, message: `Usuario no encontrado` }
       if (parseInt(user.password) !== data.password)
-        return `Contraseña incorrecta`
-        
+        return { error: 2, message: `Contraseña incorrecta` }
+
       return user
     } catch (error) {
       return `Error al validar usuario: ${error}`

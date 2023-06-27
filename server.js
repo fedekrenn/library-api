@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const { initializeDB } = require('./src/config/db-config')
+const { initializeDB } = require('./src/config/config')
 
 const {
   routerBook,
