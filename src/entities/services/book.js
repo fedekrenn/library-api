@@ -1,4 +1,4 @@
-const { BookModel } = require('../models/index')
+const { LibraryModel, BookModel } = require('../models/index')
 
 class Book {
   async getBookById(id) {
@@ -25,6 +25,14 @@ class Book {
 
   async createBook(data) {
     try {
+      const libraryFound = await LibraryModel.findOne({
+        where: { id: data.libraryId },
+        paranoid: false,
+      })
+
+      if (libraryFound?.deletedAt)
+        return `La librería id ${data.libraryId} se encuentra eliminada, por lo que no se puede añadir un libro a la misma`
+
       const res = await BookModel.create(data)
       return `Libro creado correctamente bajo el id ${res.id}`
     } catch (error) {
