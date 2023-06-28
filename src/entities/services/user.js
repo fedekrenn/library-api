@@ -4,9 +4,12 @@ class User {
   async createUser(user) {
     try {
       const res = await UserModel.create(user)
-      return `Usuario creado correctamente bajo el id ${res.id}`
+      return {
+        status: 'ok',
+        message: `Usuario creado correctamente bajo el id ${res.id}`,
+      }
     } catch (error) {
-      return `Error al crear usuario: ${error}`
+      return { error: 3, message: `Error al crear usuario: ${error}` }
     }
   }
 
@@ -19,7 +22,7 @@ class User {
 
       return user
     } catch (error) {
-      return `Error al validar usuario: ${error}`
+      return { error: 3, message: `Error al validar usuario: ${error}` }
     }
   }
 }
