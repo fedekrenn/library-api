@@ -1,11 +1,11 @@
-const { LibraryModel, BookModel } = require('../models/index')
+const { LibraryProvider } = require('../providers/index')
+const libraryProvider = new LibraryProvider()
 
 class Library {
   async getLibraryById(id) {
     try {
-      const library = await LibraryModel.findByPk(id, {
-        include: [BookModel],
-      })
+      const library = await libraryProvider.getLibraryById(id)
+
       if (!library)
         return { error: 1, message: `No existe librería con id ${id}` }
 
@@ -17,9 +17,8 @@ class Library {
 
   async getAllLibraries() {
     try {
-      const libraries = await LibraryModel.findAll({
-        include: [BookModel],
-      })
+      const libraries = await libraryProvider.getAllLibraries()
+
       if (libraries.length === 0)
         return { error: 1, message: 'Todavía no se cargaron librerías' }
 
@@ -34,7 +33,8 @@ class Library {
 
   async createLibrary(data) {
     try {
-      const res = await LibraryModel.create(data)
+      const res = await libraryProvider.createLibrary(data)
+
       return {
         status: 'ok',
         message: `Librería creada correctamente bajo el id ${res.id}`,
@@ -46,7 +46,8 @@ class Library {
 
   async updateLibraryById(id, data) {
     try {
-      const res = await LibraryModel.update(data, { where: { id } })
+      const res = await libraryProvider.updateLibraryById(id, data)
+
       if (res[0] === 0)
         return { error: 1, message: `No existe librería con id ${id}` }
 
@@ -61,7 +62,8 @@ class Library {
 
   async deleteLibraryById(id) {
     try {
-      const res = await LibraryModel.destroy({ where: { id } })
+      const res = await libraryProvider.deleteLibraryById(id)
+
       if (res === 0)
         return { error: 1, message: `No existe librería con id ${id}` }
 

@@ -17,13 +17,13 @@ const validateUser = async (req, res) => {
   const validUser = await handleUsers.validateUser(userData)
 
   if (validUser.error)
-    return res.status(401).json({ message: validUser.message })
+    return res.status(401).json({ status: 'error', ...validUser })
 
   const token = jwt.sign({ validUser }, SERVER_SECRET, {
     expiresIn: '10m',
   })
 
-  return res.json({ message: 'Accediste correctamente!', token })
+  return res.json({ status: 'ok', message: 'Accediste correctamente!', token })
 }
 
 module.exports = {

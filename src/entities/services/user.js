@@ -1,9 +1,11 @@
-const { UserModel } = require('../models/index')
+const { UserProvider } = require('../providers/index')
+const userProvider = new UserProvider()
 
 class User {
   async createUser(user) {
     try {
-      const res = await UserModel.create(user)
+      const res = await userProvider.createUser(user)
+
       return {
         status: 'ok',
         message: `Usuario creado correctamente bajo el id ${res.id}`,
@@ -15,7 +17,8 @@ class User {
 
   async validateUser(data) {
     try {
-      const user = await UserModel.findOne({ where: { name: data.name } })
+      const user = await userProvider.validateUser(data)
+
       if (!user) return { error: 1, message: `Usuario no encontrado` }
       if (parseInt(user.password) !== data.password)
         return { error: 2, message: `Contraseña incorrecta` }
