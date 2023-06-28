@@ -1,9 +1,11 @@
-const { BookModel } = require('../models/index')
-
 class Book {
+  constructor(model) {
+    this.model = model
+  }
+
   async getBookById(id) {
     try {
-      return await BookModel.findByPk(id)
+      return await this.model.findByPk(id)
     } catch (error) {
       return error
     }
@@ -11,7 +13,7 @@ class Book {
 
   async getBooks() {
     try {
-      return await BookModel.findAll()
+      return await this.model.findAll()
     } catch (error) {
       return error
     }
@@ -19,7 +21,7 @@ class Book {
 
   async createBook(data) {
     try {
-      return await BookModel.create(data)
+      return await this.model.create(data)
     } catch (error) {
       return error
     }
@@ -27,7 +29,7 @@ class Book {
 
   async updateBookById(id, data) {
     try {
-      return await BookModel.update(data, { where: { id } })
+      return await this.model.update(data, { where: { id } })
     } catch (error) {
       return error
     }
@@ -35,7 +37,7 @@ class Book {
 
   async deleteBookById(id) {
     try {
-      return await BookModel.destroy({ where: { id } })
+      return await this.model.destroy({ where: { id } })
     } catch (error) {
       return error
     }

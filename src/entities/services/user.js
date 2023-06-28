@@ -1,10 +1,11 @@
-const { UserProvider } = require('../providers/index')
-const userProvider = new UserProvider()
-
 class User {
+  constructor(provider) {
+    this.provider = provider
+  }
+
   async createUser(user) {
     try {
-      const res = await userProvider.createUser(user)
+      const res = await this.provider.createUser(user)
 
       return {
         status: 'ok',
@@ -17,7 +18,7 @@ class User {
 
   async validateUser(data) {
     try {
-      const user = await userProvider.validateUser(data)
+      const user = await this.provider.validateUser(data)
 
       if (!user) return { error: 1, message: `Usuario no encontrado` }
       if (parseInt(user.password) !== data.password)

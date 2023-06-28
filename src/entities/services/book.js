@@ -1,12 +1,12 @@
-const { LibraryProvider, BookProvider } = require('../providers/index')
-
-const libraryProvider = new LibraryProvider()
-const bookProvider = new BookProvider()
-
 class Book {
+  constructor(provider, referenceProvider) {
+    this.provider = provider
+    this.referenceProvider = referenceProvider
+  }
+
   async getBookById(id) {
     try {
-      const book = await bookProvider.getBookById(id)
+      const book = await this.provider.getBookById(id)
 
       if (!book)
         return { status: 'warning', message: `No existe libro con id ${id}` }
@@ -19,7 +19,7 @@ class Book {
 
   async getBooks() {
     try {
-      const books = await bookProvider.getBooks()
+      const books = await this.provider.getBooks()
 
       if (books.length === 0)
         return { status: 'warning', message: 'Todavía no se cargaron libros' }
@@ -33,7 +33,7 @@ class Book {
   async createBook(data) {
     try {
       if (data.libraryId) {
-        const libraryFound = await libraryProvider.getDeletedLibraryById(
+        const libraryFound = await this.referenceProvider.getDeletedLibraryById(
           data.libraryId
         )
 
@@ -50,8 +50,8 @@ class Book {
           }
       }
 
-      const res = await bookProvider.createBook(data)
-      
+      const res = await this.provider.createBook(data)
+
       return {
         status: 'ok',
         message: `Libro creado correctamente bajo el id ${res.id}`,
@@ -63,7 +63,7 @@ class Book {
 
   async updateBookById(id, data) {
     try {
-      const res = await bookProvider.updateBookById(id, data)
+      const res = await this.provider.updateBookById(id, data)
 
       if (res[0] === 0)
         return { error: 1, message: `No existe libro con id ${id}` }
@@ -79,7 +79,7 @@ class Book {
 
   async deleteBookById(id) {
     try {
-      const res = await bookProvider.deleteBookById(id)
+      const res = await this.provider.deleteBookById(id)
 
       if (res === 0)
         return { error: 1, message: `No existe libro con id ${id}` }

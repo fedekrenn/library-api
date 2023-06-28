@@ -1,9 +1,11 @@
-const { UserModel } = require('../models/index')
-
 class User {
+  constructor(model) {
+    this.model = model
+  }
+
   async createUser(user) {
     try {
-      return await UserModel.create(user)
+      return await this.model.create(user)
     } catch (error) {
       return error
     }
@@ -11,7 +13,7 @@ class User {
 
   async validateUser(data) {
     try {
-      return await UserModel.findOne({ where: { name: data.name } })
+      return await this.model.findOne({ where: { name: data.name } })
     } catch (error) {
       return error
     }

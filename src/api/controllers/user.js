@@ -1,20 +1,18 @@
 const jwt = require('jsonwebtoken')
 const { SERVER_SECRET } = require('../../config/config')
-
-const UserService = require('../../entities/services/user')
-const handleUsers = new UserService()
+const { userService } = require('../../entities/services/index')
 
 const createUser = async (req, res) => {
   const { body: userData } = req
 
-  const result = await handleUsers.createUser(userData)
+  const result = await userService.createUser(userData)
   res.json(result)
 }
 
 const validateUser = async (req, res) => {
   const { body: userData } = req
 
-  const validUser = await handleUsers.validateUser(userData)
+  const validUser = await userService.validateUser(userData)
 
   if (validUser.error)
     return res.status(401).json({ status: 'error', ...validUser })

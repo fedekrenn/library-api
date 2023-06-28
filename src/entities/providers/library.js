@@ -1,17 +1,12 @@
-const { LibraryModel, BookModel } = require('../models/index')
-
 class Library {
-  async getLibraryById(id) {
-    try {
-      return await LibraryModel.findByPk(id, { include: [BookModel] })
-    } catch (error) {
-      return error
-    }
+  constructor(model, referenceModel) {
+    this.model = model
+    this.referenceModel = referenceModel
   }
 
-  async getDeletedLibraryById(id) {
+  async getLibraryById(id) {
     try {
-      return await LibraryModel.findByPk(id, { paranoid: false })
+      return await this.model.findByPk(id, { include: [this.referenceModel] })
     } catch (error) {
       return error
     }
@@ -19,7 +14,15 @@ class Library {
 
   async getAllLibraries() {
     try {
-      return await LibraryModel.findAll({ include: [BookModel] })
+      return await this.model.findAll({ include: [this.referenceModel] })
+    } catch (error) {
+      return error
+    }
+  }
+
+  async getDeletedLibraryById(id) {
+    try {
+      return await this.model.findByPk(id, { paranoid: false })
     } catch (error) {
       return error
     }
@@ -27,7 +30,7 @@ class Library {
 
   async createLibrary(data) {
     try {
-      return await LibraryModel.create(data)
+      return await this.model.create(data)
     } catch (error) {
       return error
     }
@@ -35,7 +38,7 @@ class Library {
 
   async updateLibraryById(id, data) {
     try {
-      return await LibraryModel.update(data, { where: { id } })
+      return await this.model.update(data, { where: { id } })
     } catch (error) {
       return error
     }
@@ -43,7 +46,7 @@ class Library {
 
   async deleteLibraryById(id) {
     try {
-      return await LibraryModel.destroy({ where: { id } })
+      return await this.model.destroy({ where: { id } })
     } catch (error) {
       return error
     }
