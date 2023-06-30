@@ -6,7 +6,7 @@ Api de librerías y libros, con la posibilidad de crear, editar, eliminar y list
 
 Se da una estructura de capas lógicas, para separar las responsabilidades de cada una de ellas, y así poder tener un código más limpio y mantenible.
 
-### 🚀 Nivel de Aplicación: 
+###  Nivel de Aplicación: 
 
 - **Routes**: Se encarga de recibir las request http, y de llamar a los controllers correspondientes.
 
@@ -29,8 +29,8 @@ Se da una estructura de capas lógicas, para separar las responsabilidades de ca
 
     ```
     {
-      "name": "admin",
-      "password": "admin"
+      "name": "usuario",
+      "password": "usuario"
     }
     ```
 
@@ -63,4 +63,4 @@ Se da una estructura de capas lógicas, para separar las responsabilidades de ca
 
 - Para el borrado, tanto de libros como de librerías, se aplica un borrado lógico, es decir que no se elimina el registro de la base de datos, sino que se le asigna un estado de "inactivo" para que no sea listado en las consultas.
 
-- Inicialmente la DB cuenta con datos precargados, estos es 1 librería que tiene 2 libros asociados a la misma y una librería sin libros asociados. En cuanto a libros, hay 2 que pertenecen a la librería activa y 1 que no pertenece a ninguna librería.
+- Inicialmente la DB cuenta con datos precargados, estos es 1 librería que tiene 2 libros asociados a la misma y una librería sin libros asociados. En cuanto a libros, hay 2 que pertenecen a la librería activa y 1 que no pertenece a ninguna librería. Por último, ya hay un usuario "admin" con pass "admin" precargado.
