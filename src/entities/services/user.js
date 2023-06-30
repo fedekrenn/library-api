@@ -21,7 +21,7 @@ class User {
       const user = await this.provider.validateUser(data)
 
       if (!user) return { error: 1, message: `Usuario no encontrado` }
-      if (parseInt(user.password) !== data.password)
+      if (user.password != data.password)
         return { error: 2, message: `Contraseña incorrecta` }
 
       return user
