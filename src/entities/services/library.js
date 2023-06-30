@@ -1,61 +1,79 @@
-const Libreria = require('../models/library')
-const Libro = require('../models/book')
-
 class Library {
+  constructor(provider) {
+    this.provider = provider
+  }
+
   async getLibraryById(id) {
     try {
-      const library = await Libreria.findByPk(id, {
-        include: [Libro],
-      })
-      if (!library) return `No existe librería con id ${id}`
+      const library = await this.provider.getLibraryById(id)
+
+      if (!library)
+        return { error: 1, message: `No existe librería con id ${id}` }
 
       return library
     } catch (error) {
-      return `Error al traer librería por id: ${error}`
+      return { error: 3, message: `Error al traer librería por id: ${error}` }
     }
   }
 
   async getAllLibraries() {
     try {
-      const libraries = await Libreria.findAll({
-        include: [Libro],
-      })
-      if (libraries.length === 0) return 'Todavía no se cargaron librerías'
+      const libraries = await this.provider.getAllLibraries()
+
+      if (libraries.length === 0)
+        return { error: 1, message: 'Todavía no se cargaron librerías' }
 
       return libraries
     } catch (error) {
-      return `Error al traer todas las librerías: ${error}`
+      return {
+        error: 3,
+        message: `Error al traer todas las librerías: ${error}`,
+      }
     }
   }
 
   async createLibrary(data) {
     try {
-      const res = await Libreria.create(data)
-      return `Librería creada correctamente bajo el id ${res.id}`
+      const res = await this.provider.createLibrary(data)
+
+      return {
+        status: 'ok',
+        message: `Librería creada correctamente bajo el id ${res.id}`,
+      }
     } catch (error) {
-      return `Error al crear librería: ${error}`
+      return { error: 3, message: `Error al crear librería: ${error}` }
     }
   }
 
   async updateLibraryById(id, data) {
     try {
-      const res = await Libreria.update(data, { where: { id } })
-      if (res[0] === 0) return `No existe librería con id ${id}`
+      const res = await this.provider.updateLibraryById(id, data)
 
-      return `Librería actualizada correctamente bajo el id ${id}`
+      if (res[0] === 0)
+        return { error: 1, message: `No existe librería con id ${id}` }
+
+      return {
+        status: 'ok',
+        message: `Librería actualizada correctamente bajo el id ${id}`,
+      }
     } catch (error) {
-      return `Error al actualizar librería: ${error}`
+      return { error: 3, message: `Error al actualizar librería: ${error}` }
     }
   }
 
   async deleteLibraryById(id) {
     try {
-      const res = await Libreria.destroy({ where: { id } })
-      if (res === 0) return `No existe librería con id ${id}`
+      const res = await this.provider.deleteLibraryById(id)
 
-      return `Librería eliminada correctamente bajo el id ${id}`
+      if (res === 0)
+        return { error: 1, message: `No existe librería con id ${id}` }
+
+      return {
+        status: 'ok',
+        message: `Librería eliminada correctamente bajo el id ${id}`,
+      }
     } catch (error) {
-      return `Error al eliminar librería: ${error}`
+      return { error: 3, message: `Error al eliminar librería: ${error}` }
     }
   }
 }

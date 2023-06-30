@@ -1,28 +1,34 @@
-const { DataTypes } = require("sequelize");
-const { sequelize: db } = require("../../config/db-config");
+const { DataTypes } = require('sequelize')
+const { sequelize: db } = require('../../config/config')
 
-const Libro = db.define("libro", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const Book = db.define(
+  'book',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    isbn: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    year: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  isbn: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  author: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  year: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  {
+    paranoid: true,
+  }
+)
 
-module.exports = Libro;
+module.exports = Book

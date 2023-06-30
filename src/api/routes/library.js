@@ -10,6 +10,7 @@ const {
 
 const { Router } = express;
 const routerLibrary = Router();
+const { isLogged } = require("../middlewares/auth");
 
 /* ---------- GET ------------ */
 
@@ -18,14 +19,14 @@ routerLibrary.get("/:id", getLibraryById);
 
 /* ---------- POST ------------ */
 
-routerLibrary.post("/", createLibrary);
+routerLibrary.post("/", isLogged, createLibrary);
 
 /* ---------- PUT ------------ */
 
-routerLibrary.put("/:id", updateLibraryById);
+routerLibrary.put("/:id", isLogged, updateLibraryById);
 
 /* ---------- DELETE ------------ */
 
-routerLibrary.delete("/:id", deleteLibraryById);
+routerLibrary.delete("/:id", isLogged, deleteLibraryById);
 
 module.exports = routerLibrary;

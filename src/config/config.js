@@ -15,4 +15,6 @@ const initializeDB = async () => {
   }
 };
 
-module.exports = { sequelize, initializeDB };
+const SERVER_SECRET = 'secret'
+
+module.exports = { sequelize, initializeDB, SERVER_SECRET };
